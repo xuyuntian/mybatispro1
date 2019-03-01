@@ -24,7 +24,7 @@ public class MyBatisConfig {
     @Bean
     public DataSource dataSource(){
         DruidDataSource druidDataSource = new DruidDataSource();
-        druidDataSource.setUrl("jdbc:mysql://localhost:3306/mybatis_test");
+        druidDataSource.setUrl("jdbc:mysql://localhost:3306/mybatis_test?useSSL=false");
         druidDataSource.setUsername("root");
         druidDataSource.setPassword("Xyt_199745");
         druidDataSource.setInitialSize(1);

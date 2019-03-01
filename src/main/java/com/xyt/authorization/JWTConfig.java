@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 
@@ -19,7 +20,7 @@ public class JWTConfig {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        keyPairGenerator.initialize(1024);
+        keyPairGenerator.initialize(1024,new SecureRandom());
         KeyPair keyPair = keyPairGenerator.genKeyPair();
         RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
         RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();

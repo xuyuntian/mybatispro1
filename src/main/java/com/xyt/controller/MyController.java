@@ -10,10 +10,4 @@ import java.util.List;
 
 @RestController
 public class MyController {
-    @Autowired
-    BookMapper bookMapper;
-    @RequestMapping("/books")
-    public List<Book> books(){
-        return bookMapper.getBooks();
-    }
 }
