@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xyt.mapper.TypeFolderMapper">
+    <insert id="insertTypeFolder">
+        INSERT INTO type_folder (parent_id,name) VALUES(#{parentId},#{name})
+    </insert>
+    <delete id="deleteTypeFolderById">
+        DELETE FROM type_folder WHERE id = #{id};
+    </delete>
+    <select id="selectTypeFolderMapperByParentId" resultType="com.xyt.entity.TypeFolder">
+        SELECT * FROM type_folder WHERE parent_id = #{parentId}
+    </select>
+
+    <update id="updateTypeFolder">
+        UPDATE type_folder SET parent_id = #{parentId},name = #{name} WHERE id = #{id}
+    </update>
+
+
+</mapper>

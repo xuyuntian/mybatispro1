@@ -1,26 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.xyt.mapper.ArticleMapper">
-    <insert id="insertArticle" parameterType="com.xyt.model.Article">
-        INSERT INTO  article (title,content,author_id,create_date,modify_date)
-        VALUES(#{title},#{content},#{authorId},#{createDate},#{createDate})
+
+    <insert id="insertArticle" parameterType="com.xyt.entity.Article">
+        INSERT INTO article (parent_id,title,content) VALUES(#{parentId},#{title},#{content});
     </insert>
-    <insert id="insertArticleToHistory">
-        INSERT INTO  article_history (id,title,content,author_id,create_date,modify_date)
-        VALUES(#{article.id},#{article.title},#{article.content},#{article.authorId},#{article.createDate},#{deleteDate})
-    </insert>
-    <update id="updateArticle">
-        UPDATE article SET content = #{content},title = #{title},modify_date = #{modifyDate}
-        WHERE id = #{id};
+    <update id="updateArticle" parameterType="com.xyt.entity.Article">
+        UPDATE article SET parent_id = #{parentId}, title=#{title},content = #{content}
+        WHERE id = #{id}
     </update>
-    <delete id="deleteArticle">
+    <delete id="deleteArticleById">
         DELETE FROM article WHERE id = #{id}
     </delete>
+    <select id="selectArticleById" resultType="com.xyt.entity.Article">
+        SELECT * FROM article WHERE id = #{id}
+    </select>
+    <select id="selectArticlesByParentId" resultType="com.xyt.entity.Article">
+        SELECT * FROM article WHERE parent_id = #{parentId}
+    </select>
 
-    <select id="getArticleByAuthorId" parameterType="Integer" resultType="com.xyt.model.Article">
-        SELECT * FROM article WHERE author_id = #{authorId}
-    </select>
-    <select id="getArticleById" resultType="com.xyt.model.Article">
-        SELECT id,title,content,author_id,create_date,modify_date FROM article WHERE id = #{id}
-    </select>
 </mapper>

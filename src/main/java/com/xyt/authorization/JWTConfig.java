@@ -1,9 +1,6 @@
 package com.xyt.authorization;
 
 import com.auth0.jwt.algorithms.Algorithm;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
-
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
@@ -14,6 +11,9 @@ import java.security.interfaces.RSAPublicKey;
 public class JWTConfig {
     private static Algorithm algorithm = null;
     static {
+        resetAlgorithm();
+    }
+    public static void resetAlgorithm(){
         KeyPairGenerator keyPairGenerator = null;
         try {
             keyPairGenerator = KeyPairGenerator.getInstance("RSA");

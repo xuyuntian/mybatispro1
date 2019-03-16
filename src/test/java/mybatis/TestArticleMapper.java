@@ -2,10 +2,8 @@ package mybatis;
 
 import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import com.xyt.Application;
+import com.xyt.entity.Article;
 import com.xyt.mapper.ArticleMapper;
-import com.xyt.mapper.BookMapper;
-import com.xyt.model.Article;
-import com.xyt.model.Book;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,33 +19,44 @@ public class TestArticleMapper {
     @Autowired
     ArticleMapper articleMapper;
     @Test
-    public void addArticle(){
+    public void testInsertArticle(){//通过了测试
+        Article[] articles = new Article[50];
+        for(int i =0;i<50;i++){
+            articles[i] = new Article();
+            articles[i].setParentId(i%10);
+            articles[i].setTitle("titles"+i);
+            articles[i].setContent("content"+i);
+        }//测试插入数据
+        for(Article article: articles){
+            articleMapper.insertArticle(article);
+        }
+    }
+    @Test
+    public void testupdateArticle(){
+        //测试通过
         Article article = new Article();
-        article.setAuthorId(123);
-        article.setTitle("tom");
-        article.setCreatedDate(new Date());
-        article.setContent("okay");
-        articleMapper.insertArticle(article);
+        article.setId(1);
+        article.setParentId(111);
+        article.setContent("update后的content");
+        article.setTitle("update后的tltel");
+        articleMapper.updateArticle(article);
     }
     @Test
-    public void updateArticle(){
-        articleMapper.updateArticle(1,"wow","new title",new Date());
+    public void testSelectArticleById(){
+        //通过了测试
+        Article article = articleMapper.selectArticleById(1);
+        System.out.println(article.getId()+","+article.getParentId()+","+article.getTitle()+","+article.getContent());
     }
     @Test
-    public void deleteArticle(){
-        articleMapper.deleteArticle(1);
-        System.out.println("--end----");
-
+    public void testSelectArticlesByParentId(){
+        //通过了测试
+        List<Article> articles = articleMapper.selectArticlesByParentId(1);
+        for(Article article : articles){
+            System.out.println(article.getId()+","+article.getParentId()+","+article.getTitle()+","+article.getContent());
+        }
     }
     @Test
-    public void insertIntohistory(){
-        Article article = articleMapper.getArticleById(2);
-        System.out.println(article.getAuthorId());
-        //articleMapper.insertArticleToHistory(article,new Date());
-    }
-    @Test
-    public void insertIntoHistory(){
-        Article article = articleMapper.getArticleById(2);
-        articleMapper.insertArticleToHistory(article,new Date());
+    public void testDeleteArticleById(){
+        articleMapper.deleteArticleById(50);
     }
 }

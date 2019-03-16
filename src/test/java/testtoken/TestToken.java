@@ -4,9 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
-import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.auth0.jwt.interfaces.Verification;
 import com.xyt.Application;
 import com.xyt.authorization.JWTConfig;
 import com.xyt.authorization.MyJwt;
@@ -27,8 +25,8 @@ public class TestToken {
     private MyJwt myJwt;
     @Test
     public void testType() throws NoSuchAlgorithmException {
-        String token = myJwt.createToken(1,0);
-        myJwt.jwtVerifier().verify(token);
+        String token = myJwt.createToken("hah","okay");
+        myJwt.jwtVerifier("hah","okay").verify(token);
     }
     @Test
     public void TestToken() throws NoSuchAlgorithmException {

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xyt.mapper.MyUserMapper">
+    <insert id="insertMyUser">
+        INSERT INTO my_user (email,password,type) VALUES(#{email},#{password},#{type})
+    </insert>
+    <update id="updateMyUser">
+        UPDATE my_user SET password = #{password},type = #{type} WHERE email = #{email}
+    </update>
+    <select id="getMyUserByEmail" resultType="com.xyt.entity.MyUser">
+        SELECT * FROM my_user WHERE email = #{email};
+    </select>
+</mapper>

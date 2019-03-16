@@ -1,5 +1,5 @@
 mybatis:
-  type-aliases-package: com.springtest.entity
+  type-aliases-package: com.xyt.entity
   mapper-locations: classpath:mybatis/mapper/*.xml
   configuration:
     map-underscore-to-camel-case: true

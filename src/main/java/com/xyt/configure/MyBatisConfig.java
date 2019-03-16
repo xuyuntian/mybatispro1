@@ -1,30 +1,16 @@
 package com.xyt.configure;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import org.apache.ibatis.mapping.Environment;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.apache.ibatis.transaction.TransactionFactory;
-import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
-import org.mybatis.spring.SqlSessionFactoryBean;
-import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
-import org.springframework.core.io.support.ResourcePatternResolver;
-
 import javax.sql.DataSource;
-import java.io.IOException;
 
 @Configuration
 public class MyBatisConfig {
     @Bean
     public DataSource dataSource(){
         DruidDataSource druidDataSource = new DruidDataSource();
-        druidDataSource.setUrl("jdbc:mysql://localhost:3306/mybatis_test?useSSL=false");
+        druidDataSource.setUrl("jdbc:mysql://localhost:3306/mybatis_test?useSSL=false&serverTimezone=GMT%2B8");
         druidDataSource.setUsername("root");
         druidDataSource.setPassword("Xyt_199745");
         druidDataSource.setInitialSize(1);
