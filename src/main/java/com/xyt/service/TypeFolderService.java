@@ -5,10 +5,11 @@ import com.xyt.entity.TypeFolder;
 import com.xyt.mapper.ArticleMapper;
 import com.xyt.mapper.TypeFolderMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
-
+@Service
 public class TypeFolderService {
     @Autowired
     private TypeFolderMapper typeFolderMapper;
