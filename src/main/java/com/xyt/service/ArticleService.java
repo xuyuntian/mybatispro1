@@ -29,16 +29,10 @@ public class ArticleService {
      *                同一个目录下的文章id不能重复
      * @return 返回是否成功?true:false;
      */
-    public boolean addArticle(Article article){
-        HashSet<String> hashSet = new HashSet();
-        List<Article> articles = articleMapper.selectArticlesByParentId(article.getParentId());
-        for(Article e : articles){
-            hashSet.add(e.getTitle());
-        }
-        if( hashSet.contains(article.getTitle()) ){
-            return false;
-        }
-        articleMapper.insertArticle(article);
-        return true;
+    public Integer addArticle(Article article){
+        return articleMapper.insertArticle(article);
+    }
+    public Article getArticleById(Integer id){
+        return articleMapper.selectArticleById(id);
     }
 }

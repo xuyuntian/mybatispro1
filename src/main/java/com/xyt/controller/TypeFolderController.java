@@ -1,5 +1,6 @@
 package com.xyt.controller;
 
+import com.xyt.annotation.CheckModified;
 import com.xyt.authorization.ModifyState;
 import com.xyt.authorization.RequestBodyData;
 import com.xyt.entity.TypeFolder;
@@ -8,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin
 @RestController
 public class TypeFolderController {
     @Autowired
@@ -18,14 +19,19 @@ public class TypeFolderController {
         return typeFolderService.getTypeFolderByType(parentId);
     }
     @PostMapping("/add-type-folder")
+    @CheckModified
     public Integer addTypeFolder(@RequestBody RequestBodyData<TypeFolder> requestBodyData){
-        return typeFolderService.addTypeFolder(requestBodyData.getPostData())? ModifyState.SUCCESS:ModifyState.FAILD;
+        TypeFolder typeFolder = requestBodyData.getPostData();
+        typeFolderService.addTypeFolder(typeFolder);
+        return typeFolder.getId();
     }
     @PutMapping("/update-type-folder")
+    @CheckModified
     public Integer updateTypeFolder(@RequestBody RequestBodyData<TypeFolder> requestBodyData){
         return typeFolderService.updateTypeFolder(requestBodyData.getPostData())?ModifyState.SUCCESS:ModifyState.FAILD;
     }
     @DeleteMapping("/delete-type-folder")
+    @CheckModified
     public Integer deleteTypeFolder(@RequestBody RequestBodyData<TypeFolder> requestBodyData){
        return typeFolderService.deleetTypeFolder(requestBodyData.getPostData().getId())?ModifyState.SUCCESS:ModifyState.FAILD;
 

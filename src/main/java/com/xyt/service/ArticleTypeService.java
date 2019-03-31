@@ -14,11 +14,11 @@ public class ArticleTypeService {
     private ArticleTypeMapper articleTypeMapper;
     @Autowired
     private TypeFolderMapper typeFolderMapper;
-    public void addArticleType(ArticleType articleType){
-        articleTypeMapper.insertArticleType(articleType);
+    public Integer addArticleType(ArticleType articleType){
+        return articleTypeMapper.insertArticleType(articleType);
     }
     public void updateArticleType(ArticleType articleType){
-        articleTypeMapper.insertArticleType(articleType);
+        articleTypeMapper.updateArticleType(articleType);
     }
 
     /**
@@ -28,7 +28,7 @@ public class ArticleTypeService {
      */
     public boolean deleteArticleType(Integer id){
         List<TypeFolder> typeFolders = typeFolderMapper.selectTypeFolderMapperByParentId(id);
-        if(typeFolders!=null){
+        if(typeFolders.size()>0){
             return false;
         }
         articleTypeMapper.deleteArticleTypeById(id);

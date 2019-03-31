@@ -26,8 +26,9 @@ public class TypeFolderService {
      */
     public  boolean deleetTypeFolder(Integer id){
         List<Article> articles = articleMapper.selectArticlesByParentId(id);
-        if(articles==null){
+        if(articles.size() == 0){
             typeFolderMapper.deleteTypeFolderById(id);
+            return true;
         }
         return false;
     }
@@ -37,17 +38,9 @@ public class TypeFolderService {
      * @param typeFolder 要添加的TypeFolder. 但相同类别的目录name不能重复
      * @return 是否添加成功
      */
-    public boolean addTypeFolder(TypeFolder typeFolder){
-        List<TypeFolder> typeFolders = typeFolderMapper.selectTypeFolderMapperByParentId(typeFolder.getParentId());
-        HashSet<String> hashSet = new HashSet<>();
-        for(TypeFolder e : typeFolders){
-            hashSet.add(e.getName());
-        }
-        if(hashSet.contains(typeFolder.getName())){
-            return false;
-        }
-        typeFolderMapper.insertTypeFolder(typeFolder);
-        return true;
+    public Integer addTypeFolder(TypeFolder typeFolder){
+        return typeFolderMapper.insertTypeFolder(typeFolder);
+
     }
     public boolean updateTypeFolder(TypeFolder typeFolder){
         List<TypeFolder> typeFolders = typeFolderMapper.selectTypeFolderMapperByParentId(typeFolder.getParentId());

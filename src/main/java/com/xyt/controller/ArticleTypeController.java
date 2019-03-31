@@ -1,16 +1,18 @@
 package com.xyt.controller;
 
-import com.xyt.annotation.CheckToken;
+import com.xyt.annotation.CheckDelete;
+import com.xyt.annotation.CheckModified;
 import com.xyt.authorization.ModifyState;
 import com.xyt.authorization.RequestBodyData;
 import com.xyt.entity.ArticleType;
+import com.xyt.entity.MyUser;
 import com.xyt.entity.TypeFolder;
 import com.xyt.service.ArticleTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin
 @RestController
 public class ArticleTypeController {
     @Autowired
@@ -20,19 +22,20 @@ public class ArticleTypeController {
         return articleTypeService.getArticleType();
     }
     @PostMapping("add-article-type")
-    @CheckToken
+    @CheckModified
     public Integer addArticleType(@RequestBody RequestBodyData<ArticleType> requestBodyData){
         ArticleType articleType =requestBodyData.getPostData();
         articleTypeService.addArticleType(articleType);
-        return ModifyState.SUCCESS;
+        return articleType.getId();
     }
     @DeleteMapping("delete-article-type")
-    @CheckToken
-    public Integer deleteArticleType(@RequestBody RequestBodyData<TypeFolder> requestBodyData){
-        return articleTypeService.deleteArticleType(requestBodyData.getPostData().getId())?ModifyState.SUCCESS:ModifyState.FAILD;
+    @CheckDelete
+    public Integer deleteArticleType(@RequestParam String email,@RequestParam String type, @RequestParam Integer id,
+                                     @RequestParam String token){
+        return articleTypeService.deleteArticleType(id)?ModifyState.SUCCESS:ModifyState.FAILD;
     }
     @PutMapping("update-article-type")
-    @CheckToken
+    @CheckModified
     public Integer updateArticleType(@RequestBody RequestBodyData<ArticleType> requestBodyData){
         articleTypeService.updateArticleType(requestBodyData.getPostData());
         return ModifyState.SUCCESS;

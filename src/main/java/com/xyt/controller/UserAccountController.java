@@ -1,5 +1,6 @@
 package com.xyt.controller;
 
+import com.xyt.annotation.CheckModified;
 import com.xyt.authorization.ContentOfToken;
 import com.xyt.authorization.ModifyState;
 import com.xyt.authorization.MyJwt;
@@ -10,14 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.NoSuchAlgorithmException;
-
+@CrossOrigin
 @RestController
 public class UserAccountController {
     @Autowired
     private MyUserService myUserService;
     @Autowired
     private MyJwt myJwt;
-    @GetMapping("/get-token")
+    @PostMapping("/get-token")
     public ContentOfToken geToken(@RequestBody RequestBodyData<String> requestBodyData){
         MyUser user = requestBodyData.getMyUser();
         MyUser myUser = myUserService.getMyUser(user.getEmail());
@@ -38,5 +39,10 @@ public class UserAccountController {
             contentOfToken.setToken(token);
         }
         return contentOfToken;
+    }
+    @CheckModified
+    @PostMapping("/checkToken")
+    public Integer checkToken(@RequestBody RequestBodyData<String> requestBodyData){
+        return 1;
     }
 }
